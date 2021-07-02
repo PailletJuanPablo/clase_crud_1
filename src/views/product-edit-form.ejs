@@ -10,7 +10,7 @@
 	<div class="container products-wrapper">
 		<div class="row">
 			<div class="col-12">
-				<h2 class="products-title">Estás editando: <i>PRODUCT NAME</i></h2>
+				<h2 class="products-title">Estás editando: <i> <%= producto.name  %> </i></h2>
 			</div>
 		</div>
 		<div class="col-12">
@@ -18,11 +18,11 @@
 				<div class="row product-detail">
 					<div class="col-12 col-md-6">
 						<label for="name" class="form-label">Nombre del producto:</label>
-						<input type="text" id="name" name="name" placeholder="Ej: Zapatillas Reebok" class="form-input">
+						<input type="text" value="<%= producto.name %>" id="name" name="name" placeholder="Ej: Zapatillas Reebok" class="form-input">
 					</div>
 					<div class="col-12 col-md-6">
 						<label for="price" class="form-label">Precio del producto:</label>
-						<input type="text" id="price" name="price" placeholder="Ej: 5678" class="form-input">
+						<input type="text" value="<%= producto.price %>" id="price" name="price" placeholder="Ej: 5678" class="form-input">
 					</div>
 					<div class="col-12 col-md-6">
 						<label for="discount" class="form-label">Descuento:</label>
@@ -38,7 +38,7 @@
 					</div>
 					<div class="col-12">
 						<label for="description" class="form-label">Descipción:</label>
-						<textarea name="description" id="description" class="form-input"><%= productToEdit.description %></textarea>
+						<textarea name="description" id="description" class="form-input"><%= producto.description %></textarea>
 					</div>
 					<div class="col-12">
 						<button type="submit" class="buy-now-button">Guardar producto</button>
