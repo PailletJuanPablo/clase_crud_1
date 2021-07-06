@@ -33,7 +33,7 @@ router.post('/', productsController.store);
 router.get('/:identificador/', productsController.detail); 
 
 /*** EDIT ONE PRODUCT ***/
-router.get('/edit/:id', productsController.edit); 
+router.get('/:id/edit', productsController.edit); 
 router.put('/:id', upload.single('imagen-producto'), productsController.update); 
 
 
