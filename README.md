@@ -36,3 +36,90 @@
     Verbo: DELETE
     Ruta: 'server.com/productos/:identificador'
 
+
+## Proceso de un Crud en express
+
+- Leer todos los recursos
+
+    1) Se crea la ruta con el verbo adecuado que es GET, y la ruta adecuada es entidad en plural (/productos, /products, /users)
+    
+    2) Vinculamos la ruta al método de un controller
+    
+    3) Controlador pide los datos al modelo
+   
+    4) Envía datos a la vista
+   
+    5) Vista los renderiza 
+
+- Crear un nuevo recurso
+
+    1) Se crea una ruta con el verbo adecuado que es GET para mostrar el formulario de creación (llamar al método para mostrarlo del controller)
+
+    2) Una segunda ruta con verbo POST que será llamada desde el formulario (llamará al método para crear del controller). El formulario contendrá inputs con un atributo name que será el que procesará el servidor.
+
+            Voy a crear una petición POST hacia la url que tenga en action del form
+                Va a tener como body los names de cada input con el valor que tengan en el momento de hacer el submit
+                {
+                    "price": 123,
+                    "name": "producto 1"
+                }
+
+    3) El servidor va a recibir los datos del producto en req.body y arma la estructura que corresponda para agregar un nuevo producto, products.push(nuevoProducto). Guardamos el archivo productsDatabase.json con los valores del nuevo array de productos.
+
+- Leer un recurso individual (detalle)
+
+    1) Se crea la ruta con el verbo adecuado que es GET, y la ruta adecuada es entidad en plural (/productos, /products, /users) seguida de /:identificador == parametro
+    
+    2) Vinculamos la ruta al método de un controller
+    
+    3) Obtener el id a buscar de req.params.nombreParametro == req.params.identificador
+    
+    4) Pedirle al modelo el recurso con ese identificador
+    
+    5) Si no existe un recurso con ese id, controlador devuelve una vista (Producto no encontrado)
+    
+    6) Si existe, controlador arma estructura de datos para pasarla a la vista
+            MAL PRACTICA: foreach(productos) ( (producto) =>  producto.category == 'visited' muestro algo)
+    
+    7) Vista recibe datos del controlador y los muestra al usuario
+
+- Actualizar un recurso 
+
+    1) Se crea una ruta con el verbo adecuado que es GET para mostrar el formulario de edición (llamar al método para mostrarlo del controller). 
+    El controlador obtiene el parámetro para buscar el recurso y envía los datos del recurso a la vista del formulario.
+    En cada input del formulario de edición, modifico el atributo value para que renderize el valor del producto actual (recibido desde el controlador).
+    
+    2) Una segunda ruta con verbo (PUT / PATCH) que será llamada desde el formulario (llamará al método para actualizar del controller). El formulario contendrá inputs con un atributo name que será el que procesará el servidor.
+
+            Voy a crear una petición PUT hacia la url que tenga en action del form
+            La url deberá contener el parámetro identificador del recurso (/:id)
+            Va a tener como body los names de cada input con los values de cada input que tengan en el momento de hacer el submit
+            {
+                "price": 123,
+                "name": "producto 1"
+            }
+
+    3) Obtener el parámetro id, pedirle al modelo ese recurso.
+
+    4) El servidor va a recibir los datos del producto a actualizar en req.body y arma la estructura que corresponda para editar el producto, products.findIndex() . Guardamos el archivo productsDatabase.json con los valores del nuevo array de productos.
+
+        array[indice] = nuevoValor
+
+    5) Redireccionar al usuario al home (/products)
+
+- Eliminar un producto
+
+    1) Una  ruta con el verbo DELETE que será llamada desde el formulario (llamará al método para eliminar del controller).
+
+    2) Obtener el parámetro id, pedirle al modelo ese recurso.
+
+    3) Si no existe un recurso con ese id, controlador devuelve una vista (Producto no encontrado)
+
+    4) Si existe, pide al modelo que elimine ese producto. 
+
+    5) Redireccionar al usuario al home (/products) 
+    // res.redirect(303, '/products')
+
+    
+
+

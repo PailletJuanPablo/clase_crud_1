@@ -48,9 +48,21 @@ const controller = {
 
 		const lastProduct = products[products.length - 1]
 		
-		
 		const productToCreate = req.body;
+
+		// productToCreate.id significa
+		// si existe la clave id en el objeto literal productToCreate
+		// se va a sobreeescribir caso contrario se va a crear una clave id
+
+	/*	const objeto = {
+			valor1: 1
+		}
+		objeto.valor1 = 2;
+		objeto.valor2 = 3;*/
+	//	(objeto.clave = valor ) == tanto si existe o no el valor de la clave será el especificado
+
 		productToCreate.id = lastProduct.id + 1;
+	//	productToCreate.name = 'Hola';
 
 
 		products.push(productToCreate);
@@ -103,7 +115,8 @@ const controller = {
 		// GUARDAR LA NUEVA BASE DE DATOS
 		fs.writeFileSync(productsFilePath, JSON.stringify(products, null, 2))
 
-		return res.send(products)
+
+		res.redirect(303, '/');
 
 	
 	},
@@ -111,6 +124,30 @@ const controller = {
 	// Delete - Delete one product from DB
 	destroy : (req, res) => {
 		// Do the magic
+
+		// Buscar el producto con el id recibido por parametros en el array
+		// Eliminarlo
+		// Guardar el archivo .json con el nuevo contenido de products
+
+		// Filter
+		
+
+		const nuevoArray = products.filter( (product) => product.id != req.params.id  );
+		// Todos los productos cuyo id sea diferente al enviado por parámetro
+
+
+		fs.writeFileSync(productsFilePath, JSON.stringify(nuevoArray, null, 2));
+
+		
+		// session.mensaje = 'Producto creado';
+
+		// vista
+		// if(session.mensaje) 
+		// <p> <%= session.mensaje %> 
+		res.redirect(303, '/') // Notice the 303 parameter
+
+
+
 	},
 
 	uploadImage: (req, res) => {
