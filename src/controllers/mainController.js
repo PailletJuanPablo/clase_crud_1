@@ -8,18 +8,19 @@ const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
 const controller = {
 	index: (req, res) => {
+
 		const visitedProducts = products.filter((product) => product.category == 'visited');
 		const inSaleProducts = products.filter((product) => product.category == 'in-sale');
 
 		const viewData = {
 			visiteds: visitedProducts,
-			inSale: inSaleProducts
+			inSale: inSaleProducts,
 		}
 
 		res.render('index', viewData)
 	},
 	search: (req, res) => {
-		// Do the magic
+		return res.send({ nombre: req.session.nombre, ultimaVisita: req.session.ultimaVisita });
 	},
 };
 

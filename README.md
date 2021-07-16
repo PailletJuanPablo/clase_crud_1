@@ -107,7 +107,7 @@
 
     5) Redireccionar al usuario al home (/products)
 
-- Eliminar un producto
+- Eliminar un recurso
 
     1) Una  ruta con el verbo DELETE que será llamada desde el formulario (llamará al método para eliminar del controller).
 
@@ -123,3 +123,46 @@
     
 
 
+- Session y Cookies
+
+    - Cliente va a completar un formulario de login
+    - Servidor va a 
+        1) Guardar usuario en la sesión actual
+        2) Guardar en cookies algún dato que permita regenerar esa sesión en el futuro
+
+# Autenticación
+
+- Registro
+
+    - Completo un formulario de registro
+        - input name email
+        - input name password
+            - Crear ruta, controlador que renderize vista de formulario de registro
+    - Se realiza una petición POST con los datos
+            - Crear ruta que procese POST y redireccionar a Controlador
+    - Servidor recibe email y password y antes de guardar al usuario en el sistema
+        - a la contraseña recibida desde req.body la va a encriptar y va a guardarla
+            - hashSync(contraseña recibida, saltRounds)
+            - Almacenar array de usuarios en el archivo users.json
+
+
+- Login
+
+     - Completo un formulario de login
+        - input name email
+        - input name password
+    - Se realiza una petición POST con los datos
+    - Servidor
+        - Va a revisar si existe un usuario con ese email
+        - La clave enviada desde el cliente que quiere loguearse (sin encriptar)
+          Se compara con la clave encriptada.
+          compareSync(cadenaDesencriptada, cadenaEncriptada)
+        - req.session.user = usuario obtenido desde la base de datos
+
+# Validar peticiones
+
+    - Instalar express-validator
+    - Requerir {body} en alguna ruta 
+    - Se agregan las validaciones como middlewares de las rutas y van a contener los esquemas de validator.js
+        https://github.com/validatorjs/validator.js
+    - En el controlador voy a verificar si la petición tiene errores y aplicar la lógica que corresponda

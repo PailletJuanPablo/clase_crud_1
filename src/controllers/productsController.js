@@ -11,18 +11,20 @@ const toThousand = n => n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 const controller = {
 	// Root - Show all products
 	index: (req, res) => {
-		// Do the magic
+		req.session.nombre == 'Juan'
 	},
 
 	// Detail - Detail from one product
 	detail: (req, res) => {
 
+		console.log(req.cookies)
 		const id = req.params.identificador;
 		const product = products.find((prod) => prod.id == id);
 
 		const viewData = {
 			product,
-			titulo: 'Hola'
+			titulo: 'Hola',
+			nombre: req.cookies.nombre
 		}
 
 		return res.render('detail', viewData)
@@ -30,6 +32,7 @@ const controller = {
 
 	// Create - Form to create
 	create: (req, res) => {
+		
 		return res.render('product-create-form')
 	},
 	

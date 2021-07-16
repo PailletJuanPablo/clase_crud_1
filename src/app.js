@@ -5,9 +5,11 @@ const express = require('express');
 const logger = require('morgan');
 const path = require('path');
 const methodOverride =  require('method-override'); // Pasar poder usar los métodos PUT y DELETE
+const expressSession = require('express-session');
 
 // ************ express() - (don't touch) ************
 const app = express();
+app.use(expressSession({secret: 'secreta'}));
 
 // ************ Middlewares - (don't touch) ************
 app.use(express.static(path.join(__dirname, '../public')));  // Necesario para los archivos estáticos en el folder /public
@@ -21,15 +23,15 @@ app.use(methodOverride('_method')); // Pasar poder pisar el method="POST" en el 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '/views')); // Define la ubicación de la carpeta de las Vistas
 
-
-
 // ************ WRITE YOUR CODE FROM HERE ************
 // ************ Route System require and use() ************
 const mainRouter = require('./routes/main'); // Rutas main
 const productsRouter = require('./routes/products'); // Rutas /products
+const authRouter = require('./routes/auth'); // Rutas /products
 
 app.use('/', mainRouter);
 app.use('/products', productsRouter);
+app.use('/auth', authRouter);
 
 
 
