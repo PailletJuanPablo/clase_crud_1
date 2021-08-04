@@ -166,3 +166,81 @@
     - Se agregan las validaciones como middlewares de las rutas y van a contener los esquemas de validator.js
         https://github.com/validatorjs/validator.js
     - En el controlador voy a verificar si la petición tiene errores y aplicar la lógica que corresponda
+
+
+
+
+
+
+# Cookies y Session
+
+    - Las cookies se manejan principalmente desde el lado del cliente
+    - La session desde el lado del servidor
+
+    - Cookies son para datos no sensibles
+    - Session para datos sensibles
+
+    - Cookies pueden durar mucho tiempo.
+    - Session dura el tiempo que este abierto el navegador. Cada vez que volvemos a abrirlo se genera una nueva session.
+
+
+¿Como identificar si el cliente ya visitó antes mi sitio?
+
+- Como servidor chequear en cookies si existe "yaVisito"
+- Si no existe "yaVisito" quiere decir que es la primera vez que ingresa
+- Le guardo la cookie "yaVisito"
+
+Contador de visitas
+
+- Guardo una cookie "visitas" con un valor inicial de 1 
+- Cada vez que recibo una petición le sumo 1 al valor de visitas
+
+# Session
+
+- Nace y muere con la apertura y cierre del navegador. 
+- No deja rastros
+
+
+
+
+# Sequelize
+
+- Instalar paquetes de npm
+    - npm i -g sequelize-cli (global, una sola vez)
+    - npm i sequelize // Paquete 
+    - npm i mysql2 // Motor de base de datos a utilizar
+
+- Archivo .sequelizerc
+- ejecutar sequelize init
+- En src/database/config.js agregar module.exports al inicio para exportar el objeto
+
+# Variables de Entorno
+
+- instalar dotenv
+    npm i dotenv
+- crear archivo .env y agregarlo en .gitignore
+- agregar la linea 
+    require('dotenv').config() en nuestro código
+Ya está configurado
+
+
+
+# Migraciones
+
+- Ejecutar npm install --save-dev sequelize-cli (Esto instala la librería como dependencia de desarrollo)
+
+- Generar migraciones y modelos
+npx sequelize-cli model:generate --name User --attributes id:integer,name:string,email:string,password:string
+
+- Ejecutar las migraciones
+npx sequelize-cli db:migrate
+
+```
+Ejemplo para productos:
+npx sequelize-cli model:generate --name Product --attributes name:string,price:decimal,discount:decimal,category:string,description:string,image:string
+```
+
+
+
+
+    

@@ -17,9 +17,12 @@
 			<form action="/auth/register" method="POST" >
 				<div class="row product-detail">
 
-					<% errors.forEach(error => { %>
-					 <p style="color: red"> <%=error.msg %>  </p>
-					<% }) %>
+					<% if (typeof errors == 'array' && errors) { %>
+						<% errors.forEach(error => { %>
+							<p style="color: red"> <%=error.msg %>  </p>
+						   <% }) %>
+					<% } %>
+					
 				
 					<div class="col-12 col-md-6">
 						<label for="email" class="form-label">Email:</label>

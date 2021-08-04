@@ -9,6 +9,10 @@ const saltRounds = 10;
 
 const { validationResult } = require('express-validator');
 
+
+const encrypt = (cadenaAEncriptar) => Buffer.from(cadenaAEncriptar).toString('base64');
+const decrypt = (cadenaADesencriptar) =>  Buffer.from(cadenaADesencriptar, 'base64').toString();
+
 const controller = {
     registerCreate: (req, res) => {
         res.render('register');
@@ -20,6 +24,8 @@ const controller = {
             return res.render('register', { errors: errors.array() });
            // return res.status(400).json({ errors: errors.array() });
         }
+
+
 
 
 
@@ -52,14 +58,26 @@ const controller = {
         if (comparacion) {
             req.session.user = userToLogin;
 
-            return res.send(req.session);
+            if(req.body.remember) {
+                // Guardar una cookie para que el servidor pueda recrear la sesión en el futuro
+                const emailEncriptado = encrypt(userToLogin.email)
+
+                //const emailDesencriptado = decrypt(emailEncriptado)
+            //    return res.send(emailDesencriptado)
+                res.cookie('hint', emailEncriptado)
+            }
+
+            //return res.send(req.session);
         }
 
 
+        return res.redirect('/', 301)
 
-        return res.send(req.body);
+    //    return res.send(req.body);
         // recibir datos del usuario a loguear
     }
+
+    
 };
 
 module.exports = controller;
