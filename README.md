@@ -240,7 +240,9 @@ Ejemplo para productos:
 npx sequelize-cli model:generate --name Product --attributes name:string,price:decimal,discount:decimal,category:string,description:string,image:string
 ```
 
+# Trabajar con modelos
 
+- Importar el archivo database/models/index, y desde ahí utilizar el modelo { Product } = require('database/models')
 
 
     
